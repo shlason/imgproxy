@@ -18,12 +18,11 @@ func main() {
 	routes.RegisteStaticContentRoutes(r)
 	routes.RegisteImageRoutes(apiRoute)
 
-	err := http.ListenAndServeTLS(":443", "server.crt", "server.key", nil)
+	err := http.ListenAndServeTLS(":443", "~/go_app/cert/server.pem", "~/go_app/cert/server.key", r)
+
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
-
-	http.ListenAndServeTLS(":443", "~/go_app/cert/server.pem", "~/go_app/cert/server.key", r)
 
 	// g.Go(func() error {
 	// 	return http.ListenAndServe(":http", http.RedirectHandler(fmt.Sprintf("https://%s", configs.Server.Host), http.StatusSeeOther))
