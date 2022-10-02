@@ -1,12 +1,9 @@
 package routes
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
-	"github.com/shlason/imgproxy/configs"
 )
 
 func RegisteStaticContentRoutes(r *gin.Engine) {
-	r.StaticFile("/", fmt.Sprintf("%s%s", configs.Server.FeWrokDir, "index.html"))
+	r.StaticFile("/", "/react_app/actions-runner/image_proxy/Image-Proxy/Image-Proxy/build/index.html")
 }
