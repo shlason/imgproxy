@@ -18,7 +18,7 @@ func main() {
 	routes.RegisteStaticContentRoutes(r)
 	routes.RegisteImageRoutes(apiRoute)
 
-	err := http.ListenAndServeTLS(":443", "~/go_app/cert/server.pem", "~/go_app/cert/server.key", r)
+	err := http.ListenAndServeTLS(":443", "../../../../cert/server.pem", "../../../../cert/server.key", r)
 
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
