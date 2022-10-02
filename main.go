@@ -20,7 +20,7 @@ func main() {
 	routes.RegisteStaticContentRoutes(r)
 	routes.RegisteImageRoutes(apiRoute)
 
-	err := http.ListenAndServeTLS(fmt.Sprintf("%s:%s", configs.Server.Host, configs.Server.Port), "../../../../cert/server.pem", "../../../../cert/server.key", r)
+	err := http.ListenAndServeTLS(fmt.Sprintf(":%s", configs.Server.Port), "../../../../cert/server.pem", "../../../../cert/server.key", r)
 
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
