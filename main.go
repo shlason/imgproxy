@@ -1,10 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/shlason/imgproxy/configs"
 	"github.com/shlason/imgproxy/routes"
 )
 
@@ -18,7 +20,7 @@ func main() {
 	routes.RegisteStaticContentRoutes(r)
 	routes.RegisteImageRoutes(apiRoute)
 
-	err := http.ListenAndServeTLS(":443", "../../../../cert/server.pem", "../../../../cert/server.key", r)
+	err := http.ListenAndServeTLS(fmt.Sprintf("%s:%s", configs.Server.Host, configs.Server.Port), "../../../../cert/server.pem", "../../../../cert/server.key", r)
 
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
