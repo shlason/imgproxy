@@ -1,0 +1,15 @@
+basePath: /api
+host: imgproxy.sidesideeffect.io
+info:
+  contact:
+    email: nocvi111@gmail.com
+    name: sidesideeffect.io
+    url: https://github.com/shlason/imgproxy
+  description: This is a sample server celler server.
+  license:
+    name: MIT
+    url: https://github.com/shlason/imgproxy/blob/main/LICENSE
+  title: Image-Proxy Example API
+  version: "1.0"
+paths: {}
+swagger: "2.0"

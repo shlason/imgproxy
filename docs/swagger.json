@@ -1,0 +1,20 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a sample server celler server.",
+        "title": "Image-Proxy Example API",
+        "contact": {
+            "name": "sidesideeffect.io",
+            "url": "https://github.com/shlason/imgproxy",
+            "email": "nocvi111@gmail.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://github.com/shlason/imgproxy/blob/main/LICENSE"
+        },
+        "version": "1.0"
+    },
+    "host": "imgproxy.sidesideeffect.io",
+    "basePath": "/api",
+    "paths": {}
+}
