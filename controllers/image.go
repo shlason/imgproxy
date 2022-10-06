@@ -16,6 +16,7 @@ var acceptResize = map[string]string{
 	"fill": "fill",
 }
 
+// TODO: 需要整理一下
 func GetImagesByQS(c *gin.Context) {
 	urlQs := c.Query("url")
 	widthQs := c.Query("width")
@@ -38,18 +39,26 @@ func GetImagesByQS(c *gin.Context) {
 
 	fmt.Println("Convert")
 
-	if errW != nil || errH != nil || errB != nil {
-		fmt.Println(errW, errH, errB)
+	if errW != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": errW,
 		})
 		return
 	}
+	if errH != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": errH,
+		})
+		return
+	}
+	if errB != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": errB,
+		})
+		return
+	}
 
-	// https://www.nasa.gov/sites/default/files/thumbnails/image/pia22228.jpg
 	response, err := http.Get(urlQs)
-
-	fmt.Println("Get image")
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
@@ -68,8 +77,6 @@ func GetImagesByQS(c *gin.Context) {
 		return
 	}
 
-	fmt.Println("Read Response")
-
 	newImage := bimg.NewImage(bodyBytes)
 
 	imageSize, err := newImage.Size()
@@ -81,16 +88,30 @@ func GetImagesByQS(c *gin.Context) {
 		return
 	}
 
-	fmt.Println(imageSize, resizeQs, blur)
-
 	options := bimg.Options{
-		Width:       width,
-		Height:      height,
-		Crop:        true,
+		GaussianBlur: bimg.GaussianBlur{
+			Sigma:   float64(blur),
+			MinAmpl: float64(blur),
+		},
 		Gravity:     bimg.GravitySmart,
 		Quality:     100,
 		Lossless:    true,
 		Compression: 0,
+	}
+
+	if resizeQs == acceptResize["fill"] {
+
+		options.Width = width
+		options.Height = height
+		options.Crop = true
+	}
+
+	if resizeQs == acceptResize["fit"] {
+		if width-imageSize.Width < height-imageSize.Height {
+			options.Width = width
+		} else {
+			options.Height = height
+		}
 	}
 
 	result, err := newImage.Process(options)
