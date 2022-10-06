@@ -11,5 +11,42 @@ info:
     url: https://github.com/shlason/imgproxy/blob/main/LICENSE
   title: Image-Proxy Example API
   version: "1.0"
-paths: {}
+paths:
+  /image:
+    get:
+      consumes:
+      - application/json
+      description: 抓取由指定參數所處理過後的圖片
+      parameters:
+      - description: Image URL
+        in: query
+        name: url
+        required: true
+        type: string
+      - description: Desire Width
+        in: query
+        name: width
+        required: true
+        type: string
+      - description: Desire height
+        in: query
+        name: height
+        required: true
+        type: string
+      - description: fit or fill
+        in: query
+        name: resize
+        required: true
+        type: string
+      - description: Desire blur
+        in: query
+        name: blur
+        required: true
+        type: string
+      produces:
+      - image/*
+      responses: {}
+      summary: 抓取圖片
+      tags:
+      - image
 swagger: "2.0"
