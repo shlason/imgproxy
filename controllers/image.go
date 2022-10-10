@@ -16,6 +16,18 @@ var acceptResize = map[string]string{
 	"fill": "fill",
 }
 
+// GetImagesByQS godoc
+// @Summary      抓取圖片
+// @Description  抓取由指定參數所處理過後的圖片
+// @Tags         image
+// @Accept       json
+// @Produce      image/*
+// @Param        url     query      string  true  "Image URL"
+// @Param        width   query      string  true  "Desire Width"
+// @Param        height   query      string  true  "Desire height"
+// @Param        resize   query      string  true  "fit or fill"
+// @Param        blur   query      string  true  "Desire blur"
+// @Router       /image [get]
 // TODO: 需要整理一下
 func GetImagesByQS(c *gin.Context) {
 	urlQs := c.Query("url")

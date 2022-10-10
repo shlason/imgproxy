@@ -8,11 +8,27 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/shlason/imgproxy/configs"
+	"github.com/shlason/imgproxy/docs"
 	"github.com/shlason/imgproxy/routes"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"golang.org/x/crypto/acme/autocert"
 	"golang.org/x/sync/errgroup"
 )
 
+// @title           Image-Proxy Example API
+// @version         1.0
+// @description     This is a sample server celler server.
+
+// @contact.name   sidesideeffect.io
+// @contact.url    https://github.com/shlason/imgproxy
+// @contact.email  nocvi111@gmail.com
+
+// @license.name  MIT
+// @license.url   https://github.com/shlason/imgproxy/blob/main/LICENSE
+
+// @host      imgproxy.sidesideeffect.io
+// @BasePath  /api
 func main() {
 	var g errgroup.Group
 
@@ -25,6 +41,11 @@ func main() {
 
 	routes.RegisteStaticContentRoutes(r)
 	routes.RegisteImageRoutes(apiRoute)
+
+	docs.SwaggerInfo.Schemes = []string{"https"}
+
+	// use ginSwagger middleware to serve the API docs
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	if *localPtr {
 		r.Run()
