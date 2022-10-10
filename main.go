@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/shlason/imgproxy/configs"
 	"github.com/shlason/imgproxy/docs"
@@ -36,6 +37,11 @@ func main() {
 	flag.Parse()
 
 	r := gin.Default()
+	r.Use(cors.New(cors.Config{
+		AllowOrigins: []string{"https://*.imgproxy.sidesideeffect.io"},
+		AllowMethods: []string{"GET", "OPTIONS"},
+		AllowHeaders: []string{"Origin"},
+	}))
 
 	apiRoute := r.Group("/api")
 
