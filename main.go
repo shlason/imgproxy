@@ -37,12 +37,12 @@ func main() {
 	flag.Parse()
 
 	r := gin.Default()
-	r.Use(cors.Default())
-	// r.Use(cors.New(cors.Config{
-	// 	AllowOrigins: []string{"https://*.imgproxy.sidesideeffect.io"},
-	// 	AllowMethods: []string{"GET", "OPTIONS"},
-	// 	AllowHeaders: []string{"Origin"},
-	// }))
+	// r.Use(cors.Default())
+	r.Use(cors.New(cors.Config{
+		AllowOrigins: []string{"https://*.imgproxy.sidesideeffect.io"},
+		AllowMethods: []string{"GET", "OPTIONS"},
+		AllowHeaders: []string{"Origin"},
+	}))
 
 	apiRoute := r.Group("/api")
 
