@@ -30,6 +30,8 @@ var acceptResize = map[string]string{
 // @Router       /image [get]
 // TODO: 需要整理一下
 func GetImagesByQS(c *gin.Context) {
+	c.Writer.Header().Set("Cache-Control", "public, max-age=604800, immutable")
+
 	urlQs := c.Query("url")
 	widthQs := c.Query("width")
 	heightQs := c.Query("height")
