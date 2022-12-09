@@ -74,7 +74,34 @@ const docTemplate = `{
                         "required": true
                     }
                 ],
-                "responses": {}
+                "responses": {
+                    "200": {
+                        "description": "image/png",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.responseFormat"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/controllers.responseFormat"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "controllers.responseFormat": {
+            "type": "object",
+            "properties": {
+                "message": {}
             }
         }
     }

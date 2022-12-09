@@ -1,4 +1,9 @@
 basePath: /api
+definitions:
+  controllers.responseFormat:
+    properties:
+      message: {}
+    type: object
 host: imgproxy.sidesideeffect.io
 info:
   contact:
@@ -45,7 +50,19 @@ paths:
         type: string
       produces:
       - image/*
-      responses: {}
+      responses:
+        "200":
+          description: image/png
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.responseFormat'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.responseFormat'
       summary: 抓取圖片
       tags:
       - image
