@@ -1,6 +1,6 @@
 # imgproxy
 
-一個可以縮放和套用濾鏡的簡易 server。
+一個可以將儲存在任一地方的圖片進行縮放和套用濾鏡，而不用額外儲存圖片的簡易 proxy server。
 
 在左下方 Original image 輸入欲縮放的 image URL，線上 Demo: [點我](https://imgproxy.sidesideeffect.io/)
 
