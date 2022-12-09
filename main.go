@@ -17,19 +17,19 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
-// @title           Image-Proxy Example API
-// @version         1.0
-// @description     This is a sample server celler server.
+// @title       Image-Proxy Example API
+// @version     1.0
+// @description This is a sample server celler server.
 
-// @contact.name   sidesideeffect.io
-// @contact.url    https://github.com/shlason/imgproxy
-// @contact.email  nocvi111@gmail.com
+// @contact.name  sidesideeffect.io
+// @contact.url   https://github.com/shlason/imgproxy
+// @contact.email nocvi111@gmail.com
 
-// @license.name  MIT
-// @license.url   https://github.com/shlason/imgproxy/blob/main/LICENSE
+// @license.name MIT
+// @license.url  https://github.com/shlason/imgproxy/blob/main/LICENSE
 
-// @host      imgproxy.sidesideeffect.io
-// @BasePath  /api
+// @host     imgproxy.sidesideeffect.io
+// @BasePath /api
 func main() {
 	var g errgroup.Group
 
