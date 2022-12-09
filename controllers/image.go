@@ -16,19 +16,26 @@ var acceptResize = map[string]string{
 	"fill": "fill",
 }
 
+type responseFormat struct {
+	Message interface{} `json:"message"`
+}
+
+// TODO: 需要整理一下 code 以及文件
 // GetImagesByQS godoc
 // @Summary     抓取圖片
 // @Description 抓取由指定參數所處理過後的圖片
 // @Tags        image
 // @Accept      json
 // @Produce     image/*
-// @Param       url    query string true "Image URL"
-// @Param       width  query string true "Desire Width"
-// @Param       height query string true "Desire height"
-// @Param       resize query string true "fit or fill"
-// @Param       blur   query string true "Desire blur"
+// @Param       url    query    string       true "Image URL"
+// @Param       width  query    string       true "Desire Width"
+// @Param       height query    string       true "Desire height"
+// @Param       resize query    string       true "fit or fill"
+// @Param       blur   query    string       true "Desire blur"
+// @Success     200    {string} content-type "image/png"
+// @Success     400    {object} responseFormat
+// @Success     500    {object} responseFormat
 // @Router      /image [get]
-// TODO: 需要整理一下
 func GetImagesByQS(c *gin.Context) {
 	c.Writer.Header().Set("Cache-Control", "public, max-age=604800, immutable")
 
@@ -41,8 +48,8 @@ func GetImagesByQS(c *gin.Context) {
 	_, err := url.ParseRequestURI(urlQs)
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "Invalid image URL",
+		c.JSON(http.StatusBadRequest, responseFormat{
+			Message: "Invalid image URL",
 		})
 		return
 	}
@@ -54,20 +61,20 @@ func GetImagesByQS(c *gin.Context) {
 	fmt.Println("Convert")
 
 	if errW != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": errW,
+		c.JSON(http.StatusBadRequest, responseFormat{
+			Message: errW,
 		})
 		return
 	}
 	if errH != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": errH,
+		c.JSON(http.StatusBadRequest, responseFormat{
+			Message: errH,
 		})
 		return
 	}
 	if errB != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": errB,
+		c.JSON(http.StatusBadRequest, responseFormat{
+			Message: errB,
 		})
 		return
 	}
@@ -75,8 +82,8 @@ func GetImagesByQS(c *gin.Context) {
 	response, err := http.Get(urlQs)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": err,
+		c.JSON(http.StatusInternalServerError, responseFormat{
+			Message: err,
 		})
 		return
 	}
@@ -85,8 +92,8 @@ func GetImagesByQS(c *gin.Context) {
 	bodyBytes, e := io.ReadAll(response.Body)
 
 	if e != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": err,
+		c.JSON(http.StatusInternalServerError, responseFormat{
+			Message: err,
 		})
 		return
 	}
@@ -96,8 +103,8 @@ func GetImagesByQS(c *gin.Context) {
 	imageSize, err := newImage.Size()
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": err,
+		c.JSON(http.StatusBadRequest, responseFormat{
+			Message: err,
 		})
 		return
 	}
@@ -131,8 +138,8 @@ func GetImagesByQS(c *gin.Context) {
 	result, err := newImage.Process(options)
 
 	if e != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"message": err,
+		c.JSON(http.StatusInternalServerError, responseFormat{
+			Message: err,
 		})
 		return
 	}
